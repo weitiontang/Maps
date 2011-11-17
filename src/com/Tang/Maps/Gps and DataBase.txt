@@ -87,6 +87,23 @@ myDB.dropTable(tableName) //drop table
 
 
 
+ShareData:
+這裡放一些會共用的資料函式
+
+
+newProgress
+recentProgress
+addProgress
+//用SharedPreference來記各個script的遊戲進度
+
+load
+//用來寫進data base的資料
+
+calcDistance(double lat1, double lon1, double lat2, double lon2)
+//計算經緯度
+
+
+
 
 
 
