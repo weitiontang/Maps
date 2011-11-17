@@ -1,0 +1,93 @@
+Gps:
+
+在GpsPosition.java中:
+
+
+data member: latitude,longitude
+//預設為0或是上次位置
+
+method:
+gpsStart(); 
+//用來初始化gps function
+
+
+onLocationChanged(Location location) 
+// gps位置改變會啟動(預設功能為更新latitude,longitude)
+// 如果要在onLocationChanged執行其他程式,就自建一個class extend GpsPosition
+// overide onLocationChanged(Location location)
+
+ex:
+
+private newGpsPosition gps;
+gps = new newGpsPosition(this);
+            
+if( !gps.gpsStart() )
+ { 
+    Toast.makeText(getBaseContext(),"GPS cannot find!!!",Toast.LENGTH_SHORT).show();
+ }
+
+private class newGpsPosition extends GpsPosition {
+	
+	newGpsPosition(Context ctx)
+	{
+		super(ctx);
+	}
+	
+	@Override
+    public void onLocationChanged(Location location) 
+        {
+	   something to do	
+	}
+	
+}
+
+
+DataBase:
+id name latitude longitude date content  
+
+在SharedData.java中的load()
+和不同script(table)的名字(ex:script1)
+可以用手改內建data base資料
+
+
+先用SharedData.load(this,scriptName)來寫進SQL
+
+/然後就可以用 DBAdapter 來使用資料庫
+private DBAdapter myDB = new DBAdapter(this);
+
+//選擇table
+myDB.selectTable(scriptName);
+
+//取資料:
+Cursor cursor = myDB.getAllTitles();
+cursor.moveToFirst();
+for(int i = 0; i < cursor.geCount(); i++)
+{
+  cursor[0] // id
+  cursor[1] // name
+  cursor[2] //latitude
+  cursor[3] //longitude
+  cursor[4] //date
+  cursor[5] //content
+
+  cursor.moveToNext();//next cursor
+}
+
+
+//關閉database(關掉後要重新new)
+myDB.close(); 
+ 
+
+//其他
+myDB.newTable(tableName) //add table
+myDB.insertTitle(name,latitude,longitude,date,content) //insert data
+myDB.deleteTitle(id) //delete
+myDB.getTitle(long rowId)// get specific item
+myDB.dropTable(tableName) //drop table
+
+
+
+
+
+
+
